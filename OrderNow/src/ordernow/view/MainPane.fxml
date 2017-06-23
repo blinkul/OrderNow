@@ -6,7 +6,6 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-
 <AnchorPane xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ordernow.controller.MainPane">
    <children>
       <GridPane>
@@ -21,6 +20,7 @@
         </rowConstraints>
          <children>
             <Button fx:id="buttonTestID" mnemonicParsing="false" onAction="#test" text="TEST" />
+            <Button fx:id="aMersGitID" mnemonicParsing="false" onAction="#aMersGit" text="A mers Git" GridPane.rowIndex="1" />
          </children>
       </GridPane>
    </children>
