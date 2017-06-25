@@ -10,12 +10,16 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import ordernow.model.Comanda;
+import ordernow.model.HBoxCreator;
 import ordernow.model.Persons;
 
 public class MainPane implements Initializable {
@@ -32,11 +36,11 @@ public class MainPane implements Initializable {
 	
 	//Main Pane
 	@FXML
-	Button btnMenuID, btnTableID, btnAddMenuID;
+	Button btnMenuID, btnTableID, btnAddOrderID;
 	@FXML
 	GridPane gridPaneMainID;	
 	@FXML
-	TextField tfMenuID;
+	TextField tfMenuID, tfPretID;
 	@FXML
 	TableView<Persons> testTableID;
 	@FXML
@@ -45,6 +49,10 @@ public class MainPane implements Initializable {
 	TableColumn<Persons, Double> columnAmountID;
 	@FXML
 	ChoiceBox<Persons> cbChooseID;
+	@FXML
+	VBox vbOrdersID;
+	@FXML
+	Label InformatiiID;
 		
 	boolean isMenuOpen = true;
 	boolean isTableOpen = false;
@@ -138,6 +146,7 @@ public class MainPane implements Initializable {
 			person = new Persons(name, amount);
 			listOfPersons.add(person);
 			System.out.println("Contact added: " + name);
+			InformatiiID.setText("Contact added: " + name);
 			cbChooseID.getItems().add(person);
 		} else {
 			System.out.println("Contact was not added.");
@@ -155,15 +164,19 @@ public class MainPane implements Initializable {
 	private boolean isContactEligible(String name) {
 		if (name.trim().isEmpty()) {
 			System.out.println("Text field is empty");
+			InformatiiID.setText("Nu ati introdus nimic in campul <Nume>!");
 			return false;
 		} else if (isContainingNumbers(name)) {
 			System.out.println("Text contains numbers");
+			InformatiiID.setText("Campul <Nume> nu trebuie sa contina cifre!");
 			return false;
 		} else if(isOnlyLetters(name) == false){
 			System.out.println("Text contains special characters");
+			InformatiiID.setText("Campul <Nume> nu trebuie sa contina caractere speciale!");
 			return false;
 		} else if (isAdded(name)) {
 			System.out.println("Name already exists in the database");
+			InformatiiID.setText("\"" +name+"\" exista deja in baza de date.");
 			return false;
 		} else {
 			return true;
@@ -184,6 +197,9 @@ public class MainPane implements Initializable {
 		char[] charArr = string.toCharArray();
 		for (char a : charArr) {
 			if (Character.isLetter(a) == false) {
+				if(a==' '){
+					continue;
+				}
 				return false;
 			}
 		}
@@ -192,7 +208,7 @@ public class MainPane implements Initializable {
 
 	//check if person was added before
 	private boolean isAdded(String person) {
-		person = person.trim().substring(0, 1).toUpperCase() + person.trim().substring(1).toLowerCase();
+		person = parseName(person);
 		for (Persons p : listOfPersons) {
 			if (p.getName().equals(person)) {
 				return true;
@@ -201,15 +217,49 @@ public class MainPane implements Initializable {
 		return false;
 	}
 	
-	private String parseName(String name){
-		if(tfAddPerson.getText().trim().isEmpty() == false){
-			StringBuilder sb = new StringBuilder();
-			sb.append(name.trim().substring(0, 1).toUpperCase());
-			sb.append(name.trim().substring(1).toLowerCase());
-			return sb.toString();
-		}else{			
+	private String parseName(String name) {
+		String[] strArr = name.split(" ");
+		StringBuilder sb = null;
+
+		if (name.trim().equals("") == false) {
+			sb = new StringBuilder();
+			for (String string : strArr) {
+				if (string.trim().isEmpty()) {
+					continue;
+				} else {
+					sb.append(string.substring(0, 1).toUpperCase());
+					sb.append(string.substring(1).toLowerCase());
+					sb.append(" ");
+				}
+			}
+			return sb.toString().trim();
+		} else {
 			return null;
 		}
+	}
+	
+	
+	private String orderName;
+	private Double price;
+	private Persons persoana;	
+	private Comanda comanda;
+	
+	public void addOrder(){	
+		
+//		orderName = tfMenuID.getText().trim();
+//		price = Double.valueOf(tfPretID.getText().trim());
+//		persoana = cbChooseID.getValue();
+		
+		orderName = "Mici si Bere";
+		price = 12d;
+		persoana = new Persons("Ciprian", 0d);
+		System.out.println("Comanda "+orderName+"; "+price+"; "+persoana.getName());
+		comanda = new Comanda(orderName, price, persoana);
+//		comanda = new Comanda();
+				
+		HBoxCreator hb = new HBoxCreator(comanda);		
+		vbOrdersID.getChildren().addAll(hb.getHbox());
+		
 	}
 	
 
