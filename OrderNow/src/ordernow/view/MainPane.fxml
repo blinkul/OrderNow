@@ -1,27 +1,142 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 
 <AnchorPane xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ordernow.controller.MainPane">
-   <children>
-      <GridPane>
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <Button fx:id="buttonTestID" mnemonicParsing="false" onAction="#test" text="TEST" />
-            <Button fx:id="aMersGitID" mnemonicParsing="false" onAction="#aMersGit" text="A mers Git" GridPane.rowIndex="1" />
-         </children>
-      </GridPane>
-   </children>
+	<children>
+		<GridPane fx:id="gridPaneMainID" prefHeight="500.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+			<columnConstraints>
+				<ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="30.0" prefWidth="30.0" />
+				<ColumnConstraints hgrow="NEVER" maxWidth="-Infinity" minWidth="150.0" prefWidth="150.0" />
+				<ColumnConstraints hgrow="ALWAYS" minWidth="200.0" />
+			</columnConstraints>
+			<rowConstraints>
+				<RowConstraints maxHeight="-Infinity" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+				<RowConstraints vgrow="SOMETIMES" />
+				<RowConstraints maxHeight="-Infinity" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+			</rowConstraints>
+			<children>
+            <StackPane GridPane.columnIndex="1" GridPane.rowSpan="3">
+               <children>
+                  <GridPane fx:id="gridPaneMenuID">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints maxHeight="-Infinity" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowSpan="3">
+                           <children>
+                              <Label text="Load:">
+                                 <VBox.margin>
+                                    <Insets top="10.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Button fx:id="btnLoadPersonsID" maxWidth="300.0" mnemonicParsing="false" text="Persons">
+                                 <VBox.margin>
+                                    <Insets bottom="2.0" />
+                                 </VBox.margin>
+                              </Button>
+                              <Button fx:id="btnLoadPersonsMenuID" layoutX="10.0" layoutY="10.0" maxWidth="300.0" mnemonicParsing="false" text="Persons &amp; Menu">
+                                 <VBox.margin>
+                                    <Insets bottom="2.0" />
+                                 </VBox.margin>
+                              </Button>
+                              <Label text="Save:">
+                                 <VBox.margin>
+                                    <Insets top="10.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Button fx:id="btnSavePersonsID" layoutX="10.0" layoutY="10.0" maxWidth="300.0" mnemonicParsing="false" text="Persons">
+                                 <VBox.margin>
+                                    <Insets bottom="2.0" />
+                                 </VBox.margin>
+                              </Button>
+                              <Button fx:id="btnSavePersonsMenuID" layoutX="10.0" layoutY="64.0" maxWidth="300.0" mnemonicParsing="false" text="Persons &amp; Menu" />
+                              <Button fx:id="btnClearID" layoutX="10.0" layoutY="145.0" maxWidth="300.0" mnemonicParsing="false" text="Clear Menu">
+                                 <VBox.margin>
+                                    <Insets top="20.0" />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <GridPane.margin>
+                              <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                           </GridPane.margin>
+                        </VBox>
+                     </children>
+                  </GridPane>
+                  <GridPane fx:id="gridPaneTableID" layoutX="10.0" layoutY="10.0" visible="false">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="40.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints maxHeight="-Infinity" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <TextField fx:id="tfAddPerson" promptText="Name" />
+                        <Button fx:id="btnAddPersons" maxWidth="100.0" mnemonicParsing="false" onAction="#addPersons" text="Add" GridPane.columnIndex="1" />
+                        <TableView fx:id="testTableID" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="3">
+                          <columns>
+                            <TableColumn fx:id="columnNameID" maxWidth="-1.0" minWidth="150.0" prefWidth="-1.0" text="Name" />
+                            <TableColumn fx:id="columnAmountID" maxWidth="-1.0" minWidth="100.0" prefWidth="-1.0" text="Amount" />
+                          </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </TableView>
+                     </children>
+                  </GridPane>
+               </children>
+            </StackPane>
+				<Button fx:id="btnMenuID" contentDisplay="CENTER" ellipsisString="" maxHeight="100.0" maxWidth="100.0" mnemonicParsing="false" onAction="#showHideContactCreator" text="+" textAlignment="CENTER" wrapText="true">				
+				</Button>
+            <GridPane GridPane.columnIndex="2" GridPane.rowSpan="3">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="-Infinity" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <HBox alignment="BOTTOM_LEFT" spacing="2.0" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+                     <children>
+                        <ChoiceBox fx:id="cbChooseID" minWidth="100.0" prefWidth="100.0" />
+                        <TextField fx:id="tfMenuID" maxWidth="3000.0" promptText="Menu" HBox.hgrow="ALWAYS" />
+                        <Button fx:id="btnAddMenuID" mnemonicParsing="false" text="Add" />
+                     </children>
+                     <GridPane.margin>
+                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                     </GridPane.margin>
+                  </HBox>
+               </children>
+            </GridPane>
+            <Button fx:id="btnTableID" contentDisplay="CENTER" mnemonicParsing="false" onAction="#showHideContactTable" prefHeight="30.0" prefWidth="30.0" text="=" textAlignment="CENTER" wrapText="true" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.valignment="TOP" GridPane.vgrow="NEVER" />
+			</children>
+		</GridPane>
+	</children>
 </AnchorPane>
