@@ -1,6 +1,6 @@
 package ordernow.model;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,10 +12,11 @@ public class Comanda implements Comparable<Comanda>{
 	private int cantitate;
 	private double pret;
 	private double totalComanda; // = pret * persoane.size()
-	private ObservableList<Persons> persoane;	
+//	private ArrayList<Persons> persoaneList;
+	private ObservableList<Persons> persoane;
 	
-	public Comanda(String numeMeniu, Double pret, ObservableList<Persons> persoane){
-		persoane = FXCollections.observableArrayList();
+	public Comanda(String numeMeniu, Double pret, Persons persoane){		
+		this.persoane = FXCollections.observableArrayList(persoane);
 		setNumeMeniu(numeMeniu);
 		setPret(pret);
 	}
@@ -34,10 +35,12 @@ public class Comanda implements Comparable<Comanda>{
 		this.numeMeniu = numeMeniu;
 	}
 
+	//TODO Not working
 	public int getCantitate() {
-		if (persoane.isEmpty()) {
+		if (persoane == null || persoane.get(0) == null) {
 			return 0;
 		} else {
+			testShowLista(persoane);
 			return persoane.size();
 		}
 	}
@@ -76,4 +79,12 @@ public class Comanda implements Comparable<Comanda>{
 	public String toString() {
 		return numeMeniu;
 	}	
+	
+	private void testShowLista(ObservableList<Persons> lista){
+		for(Persons p : lista){
+			System.out.println("Lista:");
+			System.out.println(p);
+			System.out.println("-----------------");
+		}
+	}
 }

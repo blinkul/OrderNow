@@ -27,16 +27,18 @@ public class HBoxCreator {
 	
 	String cantitate; 
 	String numeMeniu;
-	
+	String pret;
 	
 	public HBoxCreator(Comanda comanda){
 		cantitate = "Cantitate: " + String.valueOf(comanda.getCantitate()) + "   ";
 		numeMeniu = "Comanda: " + comanda.getNumeMeniu() + "   ";
+		pret = "Pret: " +comanda.getPret()+" RON   ";
 		
 		this.comanda = comanda;
 		hb = new HBox();
 		hb.getChildren().add(new Label(cantitate));
 		hb.getChildren().add(new Label(numeMeniu));
+		hb.getChildren().add(new Label(pret));
 		
 	}
 	

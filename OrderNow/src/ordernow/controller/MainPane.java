@@ -10,13 +10,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import ordernow.model.Comanda;
 import ordernow.model.HBoxCreator;
@@ -247,7 +247,8 @@ public class MainPane implements Initializable {
 		
 		numeComanda = tfMenuID.getText().trim();
 		pret = Double.valueOf(tfPretID.getText().trim());		
-		comanda = new Comanda(numeComanda, pret, cbChooseID.getItems());
+		comanda = new Comanda(numeComanda, pret, cbChooseID.getSelectionModel().getSelectedItem());  //cbChooseID.getItems() returneaza TOTI itemii din ChoiceBox - nu e bine
+		
 				
 		HBoxCreator hb = new HBoxCreator(comanda);		
 		vbOrdersID.getChildren().addAll(hb.getHbox());
