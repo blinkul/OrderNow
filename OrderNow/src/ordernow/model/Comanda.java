@@ -19,6 +19,7 @@ public class Comanda implements Comparable<Comanda>{
 		this.persoane = FXCollections.observableArrayList(persoane);
 		setNumeMeniu(numeMeniu);
 		setPret(pret);
+		totalComanda = this.pret * cantitate;
 	}
 	
 	private String simplifyString(String string){
