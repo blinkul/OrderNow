@@ -1,71 +1,79 @@
 package ordernow.model;
 
-import java.util.ArrayList;
+import java.util.List;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class Comanda implements Comparable<Comanda>{
-	private String orderName;
-	private int quantity;
-//	private ArrayList<Persons> doritori;	
-	private Persons persoana;
-	private Double price;
 	
-	public Comanda(String orderName, Double price, Persons persoana){
-//		setOrderName(orderName);
-//		doritori.add(persoana);
-//		setPrice(price);		
-		
-		this.orderName = orderName;
-		this.price = price;
-		//Problema la arrayList
-		this.persoana = persoana;
-		
-		System.out.println("Comanda "+orderName+"; "+price+"; "+persoana.getName());
-		
+	private String numeMeniu;
+	//probabil bazat pe numarul de persoane
+	private int cantitate;
+	private double pret;
+	private double totalComanda; // = pret * persoane.size()
+	private ObservableList<Persons> persoane;	
+	
+	public Comanda(String numeMeniu, Double pret, ObservableList<Persons> persoane){
+		persoane = FXCollections.observableArrayList();
+		setNumeMeniu(numeMeniu);
+		setPret(pret);
+	}
+	
+	private String simplifyString(String string){
+		//TODO simplifyString
+		//Pentru comparatie, trebuiesc eliminate toate caracterele speciale si spatiile libere + to uppercase
+		return string;
 	}	
 	
-	public Comanda(){
-		
-	}
-	
-	public Double getPrice() {
-		return price;
-	}
-	public void setPrice(Double price) {
-		this.price = price;
-	}
-	public String getOrderName() {
-		return orderName;
+	public String getNumeMeniu() {
+		return numeMeniu;
 	}
 
-	public void setOrderName(String orderName) {
-		this.orderName = orderName.trim();
+	public void setNumeMeniu(String numeMeniu) {
+		this.numeMeniu = numeMeniu;
 	}
 
-	public int getQuantity() {
-		return quantity;
+	public int getCantitate() {
+		if (persoane.isEmpty()) {
+			return 0;
+		} else {
+			return persoane.size();
+		}
 	}
 
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
+	public void setCantitate(int cantitate) {
+		this.cantitate = cantitate;
 	}
 
-//	public void add(Persons person){
-//		doritori.add(person);
-//		quantity = doritori.size();
-//	}	
-//	public ArrayList<Persons> getDoritori() {
-//		return new ArrayList<Persons>(doritori);
-//	}
+	public double getPret() {
+		return pret;
+	}
 
+	public void setPret(double pret) {
+		this.pret = pret;
+	}
+
+	public double getTotalComanda() {
+		return totalComanda;
+	}
+
+	public void setTotalComanda(double totalComanda) {
+		this.totalComanda = totalComanda;
+	}
+
+	//Compara numele meniurilor DUPA simplificarea stringului
 	@Override
-	public int compareTo(Comanda order) {
-		if (orderName.equals(order)) {
+	public int compareTo(Comanda comanda) {
+		if (simplifyString(numeMeniu).equals(simplifyString(comanda.toString()))) {
 			return 1;
 		} else {
 			return 0;
 		}
 	}
-	
-	
-	
+
+	@Override
+	public String toString() {
+		return numeMeniu;
+	}	
 }

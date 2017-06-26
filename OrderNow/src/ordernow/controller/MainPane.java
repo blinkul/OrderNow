@@ -239,28 +239,18 @@ public class MainPane implements Initializable {
 	}
 	
 	
-	private String orderName;
-	private Double price;
-	private Persons persoana;	
+	private String numeComanda;
+	private Double pret;
 	private Comanda comanda;
 	
 	public void addOrder(){	
 		
-//		orderName = tfMenuID.getText().trim();
-//		price = Double.valueOf(tfPretID.getText().trim());
-//		persoana = cbChooseID.getValue();
-		
-		orderName = "Mici si Bere";
-		price = 12d;
-		persoana = new Persons("Ciprian", 0d);
-		System.out.println("Comanda "+orderName+"; "+price+"; "+persoana.getName());
-		comanda = new Comanda(orderName, price, persoana);
-//		comanda = new Comanda();
+		numeComanda = tfMenuID.getText().trim();
+		pret = Double.valueOf(tfPretID.getText().trim());		
+		comanda = new Comanda(numeComanda, pret, cbChooseID.getItems());
 				
 		HBoxCreator hb = new HBoxCreator(comanda);		
 		vbOrdersID.getChildren().addAll(hb.getHbox());
 		
 	}
-	
-
 }
