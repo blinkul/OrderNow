@@ -48,7 +48,8 @@ public class MainPane implements Initializable {
 	@FXML
 	TableColumn<Persons, Double> columnAmountID;
 	@FXML
-	ChoiceBox<Persons> cbChooseID;
+//	ChoiceBox<Persons> cbChooseID;
+	ComboBox<Persons> cbChooseID;
 	@FXML
 	VBox vbOrdersID;
 	@FXML
