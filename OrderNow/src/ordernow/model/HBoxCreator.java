@@ -23,9 +23,7 @@ import javafx.scene.layout.Priority;
 //TODO Cele de mai sus
 
 public class HBoxCreator {
-	HBox hb = null;
-	HBox hbPersons = null;
-	
+	HBox hb = null;	
 	//Will pop up a dialog pane unde:
 	//-poti vedea cine a cumparat asta
 	//-poti sterge/adauga persoane
@@ -51,9 +49,7 @@ public class HBoxCreator {
 		hb.getChildren().add(new Label(cantitate));
 		hb.getChildren().add(new Label(numeMeniu));
 		hb.getChildren().add(new Label(pretTotal));	
-		
-		
-		hb.getChildren().add(hbPersons);
+
 		
 		
 	}
