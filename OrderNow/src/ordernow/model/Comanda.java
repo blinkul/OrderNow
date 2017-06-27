@@ -1,17 +1,21 @@
 package ordernow.model;
 
-import java.util.ArrayList;
-
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class Comanda implements Comparable<Comanda>{
 	
-	private String numeMeniu;
+	private StringProperty numeMeniu;
 	//probabil bazat pe numarul de persoane
-	private int cantitate;
-	private double pret;
-	private double totalComanda; // = pret * persoane.size()
+	private IntegerProperty cantitate;
+	private DoubleProperty pret;
+	private DoubleProperty totalComanda; // = pret * persoane.size()
 //	private ArrayList<Persons> persoaneList;
 	private ObservableList<Persons> persoane;
 	
@@ -19,7 +23,7 @@ public class Comanda implements Comparable<Comanda>{
 		this.persoane = FXCollections.observableArrayList(persoane);
 		setNumeMeniu(numeMeniu);
 		setPret(pret);
-		totalComanda = this.pret * cantitate;
+		setTotalComanda(getPret() * getCantitate());
 	}
 	
 	private String simplifyString(String string){
@@ -29,14 +33,13 @@ public class Comanda implements Comparable<Comanda>{
 	}	
 	
 	public String getNumeMeniu() {
-		return numeMeniu;
+		return numeMeniuProperty().get();
 	}
 
 	public void setNumeMeniu(String numeMeniu) {
-		this.numeMeniu = numeMeniu;
+		numeMeniuProperty().set(numeMeniu);
 	}
 
-	//TODO Not working
 	public int getCantitate() {
 		if (persoane == null || persoane.get(0) == null) {
 			return 0;
@@ -47,38 +50,66 @@ public class Comanda implements Comparable<Comanda>{
 	}
 
 	public void setCantitate(int cantitate) {
-		this.cantitate = cantitate;
+		cantitateProperty().set(cantitate);
 	}
 
 	public double getPret() {
-		return pret;
+		return pretProperty().get();
 	}
 
 	public void setPret(double pret) {
-		this.pret = pret;
+		pretProperty().set(pret);;
 	}
 
 	public double getTotalComanda() {
-		return totalComanda;
+		return totalComandaProperty().get();
 	}
 
 	public void setTotalComanda(double totalComanda) {
-		this.totalComanda = totalComanda;
+		totalComandaProperty().set(totalComanda);
 	}
 
 	//Compara numele meniurilor DUPA simplificarea stringului
 	@Override
 	public int compareTo(Comanda comanda) {
-		if (simplifyString(numeMeniu).equals(simplifyString(comanda.toString()))) {
+		if (simplifyString(getNumeMeniu()).equals(simplifyString(comanda.getNumeMeniu()))) {
 			return 1;
 		} else {
 			return 0;
 		}
 	}
+	
+	public StringProperty numeMeniuProperty(){
+		if(numeMeniu == null){
+			numeMeniu = new SimpleStringProperty(this, "numeMeniu");
+		}
+		return numeMeniu;
+	}
+	
+	public IntegerProperty cantitateProperty(){
+		if(cantitate == null){
+			cantitate = new SimpleIntegerProperty(this, "cantitate");
+		}
+		return cantitate;
+	}
+	
+	public DoubleProperty pretProperty(){
+		if(pret == null){
+			pret = new SimpleDoubleProperty(this, "pret");
+		}
+		return pret;
+	}
+	
+	public DoubleProperty totalComandaProperty(){
+		if(totalComanda == null){
+			totalComanda = new SimpleDoubleProperty(this, "totalComanda");
+		}
+		return totalComanda;
+	}
 
 	@Override
 	public String toString() {
-		return numeMeniu;
+		return getNumeMeniu();
 	}	
 	
 	private void testShowLista(ObservableList<Persons> lista){

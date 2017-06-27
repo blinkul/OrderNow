@@ -1,9 +1,11 @@
 package ordernow.controller;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import javafx.beans.InvalidationListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -46,7 +48,7 @@ public class MainPane implements Initializable {
 	TextField tfMenuID, tfPretID;
 	@FXML
 	TableView<Persons> testTableID;
-		@FXML
+	@FXML
 	TableColumn<Persons, String> columnNameID;
 	@FXML
 	TableColumn<Persons, Double> columnAmountID;
@@ -71,7 +73,10 @@ public class MainPane implements Initializable {
 	boolean isMenuOpen = true;
 	boolean isTableOpen = false;
 		
-	ObservableList<Persons> listOfPersons;	
+	ArrayList<Persons> listOfPersons2 = new ArrayList<>();
+	ObservableList<Persons> listOfPersons;
+	ArrayList<Comanda> listOfMeniuri2 = new ArrayList<>();
+	ObservableList<Comanda> listOfMeniuri;
 	
 
 	@Override
@@ -80,15 +85,25 @@ public class MainPane implements Initializable {
 		showHideContactTable();
 		
 		//Detecting changes			
-		listOfPersons = FXCollections.observableArrayList();
-		listOfPersons.addListener((ListChangeListener<Persons>) c -> System.out.println("Detect change in listOfPersons"));
+		listOfPersons = FXCollections.observableArrayList(listOfPersons2);
+//		listOfPersons.addListener((ListChangeListener<Persons>) c -> System.out.println("Detect change in listOfPersons"));
+		listOfMeniuri = FXCollections.observableArrayList(listOfMeniuri2);		
 		
 		//Adding information to testTableID
 		testTableID.setItems(listOfPersons);
 		columnNameID.setCellValueFactory(new PropertyValueFactory("name"));
 		columnAmountID.setCellValueFactory(new PropertyValueFactory("amount"));
 		testTableID.getColumns().setAll(columnNameID, columnAmountID);
+		
+		//Adding listOfPersons to ComboBox
 		cbChooseID.getItems().addAll(listOfPersons);
+		
+		//Adding information to tableComenziID
+		tableComenziID.setItems(listOfMeniuri);
+		colPretID.setCellValueFactory(new PropertyValueFactory("pret"));
+		colMeniuID.setCellValueFactory(new PropertyValueFactory("numeMeniu"));
+		colPersoanaID.setCellValueFactory(new PropertyValueFactory("persoane"));
+		tableComenziID.getColumns().setAll(colPretID, colMeniuID, colPersoanaID);
 	}
 	
 	public void showHideContactCreator() {
@@ -259,6 +274,40 @@ public class MainPane implements Initializable {
 	private Persons persoana;
 	
 	public void addOrder(){	
+
+		cbChooseID.setStyle(null);
+		tfMenuID.setStyle(null);
+		tfPretID.setStyle(null);
+		
+		try{
+			numeComanda = tfMenuID.getText().trim();
+			pret = Double.valueOf(tfPretID.getText().trim());
+			persoana = cbChooseID.getSelectionModel().getSelectedItem();
+			
+			if(cbChooseID.getSelectionModel().isEmpty()){
+				InformatiiID.setText("Alegeti persoana care doreste meniul");
+				cbChooseID.setStyle("-fx-border-radius: 2px; -fx-border-color: RED");
+				return;
+			}
+			
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setTitle("Confirma comanda pentru " + persoana.getName());
+			alert.setHeaderText(persoana.getName() + " a comandat:\n" + numeComanda + "\nPret meniu: "+pret+" RON");
+			alert.setContentText("Esti ok cu asta?");
+
+			Optional<ButtonType> result = alert.showAndWait();
+			if (result.get() == ButtonType.OK){
+				comanda = new Comanda(numeComanda, pret, persoana);
+				listOfMeniuri.add(comanda);
+			} 		
+			
+		}catch(NumberFormatException nfe){
+			InformatiiID.setText("Introduceti contravaloarea meniului");
+			tfPretID.setStyle("-fx-border-radius: 2px; -fx-border-color: RED");			
+		}	
+	}
+	
+	public void addOrder_old(){	
 
 		cbChooseID.setStyle(null);
 		tfMenuID.setStyle(null);
