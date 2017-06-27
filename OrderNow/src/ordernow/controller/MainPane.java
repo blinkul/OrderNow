@@ -1,6 +1,7 @@
 package ordernow.controller;
 
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
@@ -8,8 +9,10 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -243,16 +246,41 @@ public class MainPane implements Initializable {
 	private String numeComanda;
 	private Double pret;
 	private Comanda comanda;
+	private Persons persoana;
 	
 	public void addOrder(){	
+
+		cbChooseID.setStyle(null);
+		tfMenuID.setStyle(null);
+		tfPretID.setStyle(null);
 		
-		numeComanda = tfMenuID.getText().trim();
-		pret = Double.valueOf(tfPretID.getText().trim());		
-		comanda = new Comanda(numeComanda, pret, cbChooseID.getSelectionModel().getSelectedItem());  //cbChooseID.getItems() returneaza TOTI itemii din ChoiceBox - nu e bine
-		
-				
-		HBoxCreator hb = new HBoxCreator(comanda);		
-		vbOrdersID.getChildren().addAll(hb.getHbox());
-		
-	}
+		try{
+			numeComanda = tfMenuID.getText().trim();
+			pret = Double.valueOf(tfPretID.getText().trim());
+			persoana = cbChooseID.getSelectionModel().getSelectedItem();
+			
+			if(cbChooseID.getSelectionModel().isEmpty()){
+				InformatiiID.setText("Alegeti persoana care doreste meniul");
+				cbChooseID.setStyle("-fx-border-radius: 2px; -fx-border-color: RED");
+				return;
+			}
+			
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setTitle("CONFIRMA MENIUL...");
+			alert.setHeaderText(persoana.getName() + " a comandat:\n " + numeComanda + "\nPret meniu: "+pret+" RON");
+			alert.setContentText("Esti ok cu asta?");
+
+			Optional<ButtonType> result = alert.showAndWait();
+			if (result.get() == ButtonType.OK){
+				comanda = new Comanda(numeComanda, pret, persoana);
+				//Creeaza campul comanda in tabel
+				HBoxCreator hb = new HBoxCreator(comanda);		
+				vbOrdersID.getChildren().addAll(hb.getHbox());
+			} 		
+			
+		}catch(NumberFormatException nfe){
+			InformatiiID.setText("Introduceti contravaloarea meniului");
+			tfPretID.setStyle("-fx-border-radius: 2px; -fx-border-color: RED");			
+		}	
+	}	
 }
