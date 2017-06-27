@@ -46,10 +46,20 @@ public class MainPane implements Initializable {
 	TextField tfMenuID, tfPretID;
 	@FXML
 	TableView<Persons> testTableID;
-	@FXML
+		@FXML
 	TableColumn<Persons, String> columnNameID;
 	@FXML
 	TableColumn<Persons, Double> columnAmountID;
+	
+	@FXML
+	TableView<Comanda> tableComenziID;
+	@FXML
+	TableColumn<Comanda, String> colPersoanaID;
+	@FXML
+	TableColumn<Comanda, String> colMeniuID;
+	@FXML
+	TableColumn<Comanda, String> colPretID;
+	
 	@FXML
 //	ChoiceBox<Persons> cbChooseID;
 	ComboBox<Persons> cbChooseID;
@@ -266,8 +276,8 @@ public class MainPane implements Initializable {
 			}
 			
 			Alert alert = new Alert(AlertType.CONFIRMATION);
-			alert.setTitle("CONFIRMA MENIUL...");
-			alert.setHeaderText(persoana.getName() + " a comandat:\n " + numeComanda + "\nPret meniu: "+pret+" RON");
+			alert.setTitle("Confirma comanda pentru " + persoana.getName());
+			alert.setHeaderText(persoana.getName() + " a comandat:\n" + numeComanda + "\nPret meniu: "+pret+" RON");
 			alert.setContentText("Esti ok cu asta?");
 
 			Optional<ButtonType> result = alert.showAndWait();

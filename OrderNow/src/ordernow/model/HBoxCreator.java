@@ -43,9 +43,9 @@ public class HBoxCreator {
 		
 		this.comanda = comanda;
 		hb = new HBox();
-		hb.setStyle("-fx-background-color: WHITE");
-		HBox.setHgrow(hb, Priority.ALWAYS);
-		hb.setPrefWidth(10000);
+//		hb.setStyle("-fx-background-color: WHITE");
+//		HBox.setHgrow(hb, Priority.ALWAYS);
+//		hb.setPrefWidth(10000);
 		hb.getChildren().add(new Label(cantitate));
 		hb.getChildren().add(new Label(numeMeniu));
 		hb.getChildren().add(new Label(pretTotal));	
